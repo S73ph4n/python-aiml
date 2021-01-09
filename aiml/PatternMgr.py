@@ -22,6 +22,8 @@ class PatternMgr:
     _THAT       = 3
     _TOPIC      = 4
     _BOT_NAME   = 5
+    _CARET      = 6
+    _SHARP      = 7
     
     def __init__(self):
         self._root = {}
@@ -61,7 +63,7 @@ class PatternMgr:
             raise
 
     def restore(self, filename):
-        """Restore a previously save()d collection of patterns."""
+        """Restore a previously saved collection of patterns."""
         try:
             inFile = open(filename, "rb")
             self._templateCount = marshal.load(inFile)
@@ -89,6 +91,10 @@ class PatternMgr:
                 key = self._UNDERSCORE
             elif key == u"*":
                 key = self._STAR
+            elif key == u"^":
+                key = self._CARET
+            elif key == u"#":
+                key = self._SHARP
             elif key == u"BOT_NAME":
                 key = self._BOT_NAME
             if key not in node:
@@ -106,6 +112,10 @@ class PatternMgr:
                     key = self._UNDERSCORE
                 elif key == u"*":
                     key = self._STAR
+                elif key == u"^":
+                    key = self._CARET
+                elif key == u"#":
+                    key = self._SHARP
                 if key not in node:
                     node[key] = {}
                 node = node[key]
@@ -121,6 +131,10 @@ class PatternMgr:
                     key = self._UNDERSCORE
                 elif key == u"*":
                     key = self._STAR
+                elif key == u"^":
+                    key = self._CARET
+                elif key == u"#":
+                    key = self._SHARP
                 if key not in node:
                     node[key] = {}
                 node = node[key]
@@ -215,7 +229,7 @@ class PatternMgr:
             if j == len(patMatch):
                 break
             if not foundTheRightStar:
-                if patMatch[j] in [self._STAR, self._UNDERSCORE]: #we got a star
+                if patMatch[j] in [self._STAR, self._UNDERSCORE, self._CARET, self._SHARP]: #we got a star
                     numStars += 1
                     if numStars == index:
                         # This is the star we care about.
@@ -266,8 +280,6 @@ class PatternMgr:
                 # pattern-match on the _THAT node with thatWords as words.
                 try:
                     pattern, template = self._match(thatWords, [], topicWords, root[self._THAT])
-                    if pattern != None:
-                        pattern = [self._THAT] + pattern
                 except KeyError:
                     pattern = []
                     template = None
@@ -302,6 +314,24 @@ class PatternMgr:
                 pattern, template = self._match(suf, thatWords, topicWords, root[self._UNDERSCORE])
                 if template is not None:
                     newPattern = [self._UNDERSCORE] + pattern
+                    return (newPattern, template)
+
+        # Check sharp
+        if self._SHARP in root:
+            for j in range(len(suffix)+1):
+                suf = suffix[j:]
+                pattern, template = self._match(suf, thatWords, topicWords, root[self._SHARP])
+                if template is not None:
+                    newPattern = [self._SHARP] + pattern
+                    return (newPattern, template)
+
+        # Check caret
+        if self._CARET in root:
+            for j in range(len(suffix)+1):
+                suf = suffix[j:]
+                pattern, template = self._match(suf, thatWords, topicWords, root[self._CARET])
+                if template is not None:
+                    newPattern = [self._CARET] + pattern
                     return (newPattern, template)
 
         # Check first

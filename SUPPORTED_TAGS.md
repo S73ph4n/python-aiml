@@ -107,11 +107,11 @@ Then, use the Kernel.setPredicate() call to set the "secure" predicate to
 - [ ] Sraix: access external web services and other Pandorabots.
 - [ ] Denormalization: the (approximate) inverse of normalization.
 - [ ] Pandorabots extensions:
-	- [ ] date: formatted date and time.
+	- [x] date: formatted date and time.
 	- [ ] request: access previous input request history.
 	- [ ] response: access previous bot response history.
 	- [ ] unbound predicates: check if a predicate has been set or not
-	- [ ] learn: learn new AIML categories.
+	- [x] learn: learn new AIML categories.
 	- [ ] learnf: learn new AIML categories and save in a file.
 	- [ ] explode: split words and phrases into individual character.
 - [ ] OOB (Out of Band) Tags: AIML extension for mobile device control.
