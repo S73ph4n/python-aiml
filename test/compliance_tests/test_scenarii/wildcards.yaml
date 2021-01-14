@@ -1,0 +1,28 @@
+
+- test: Underscore Test
+  file: test_aiml/wildcards.aiml
+  steps:
+    - input: 'underscoretest'
+      expected output: ''
+    - input: 'undescoretest ABC'
+      expected output: '_star = ABC'
+    - input: 'DEF undescoretest'
+      expected output: '_star = DEF'
+
+- test: Star Test
+  file: test_aiml/wildcards.aiml
+  steps:
+    - input: 'startest'
+      expected output: ''
+    - input: 'startest ABC'
+      expected output: '*star = ABC'
+    - input: 'DEF startest'
+      expected output: '*star = DEF'
+
+- test: Sharp Test
+  file: test_aiml/wildcards.aiml
+  steps:
+    - input: sharptest
+      expected output: '#star = unknown'
+    - input: keyword
+      expected output: Found KEYWORD

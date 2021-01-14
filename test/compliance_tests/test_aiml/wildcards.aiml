@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<aiml version="2.0" >
+
+<category><pattern>STARTEST *</pattern>
+<template>*star = <star/></template>
+</category>
+
+<category><pattern>* STARTEST</pattern>
+<template>*star = <star/></template>
+</category>
+	
+<category><pattern>UNDERSCORETEST _</pattern>
+<template>_star = <star/></template>
+</category>
+
+<category><pattern>_ UNDERSCORETEST</pattern>
+<template>_star = <star/></template>
+</category>
+
+<category><pattern>SHARPTEST #</pattern>
+<template>#star = <star/></template>
+</category>
+
+<category><pattern>SHARPTEST # TEST</pattern>
+<template>#star = <star/></template>
+</category>
+
+<category><pattern># KEYWORD #</pattern>
+<template>Found KEYWORD</template>
+</category>
+
+<category><pattern>^ CARETTEST</pattern>
+<template>^star = <star/></template> 
+</category>
+
+</aiml>
